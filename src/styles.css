@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lato:wght@400;700&display=swap");
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Lato", "Helvetica Neue", sans-serif;
+}
+
+.border-radius-btn {
+  border-radius: 10px !important;
+}

@@ -1,0 +1,17 @@
+<div class="flex flex-row flex-wrap">
+  <div
+    class="flex align-items-center justify-content-center w-20rem h-20rem font-bold border-round m-2"
+    *ngFor="let mesa of list"
+    [ngClass]="{
+      'bg-success': mesa.status == 'ABERTO',
+      'bg-danger': mesa.status == 'USO',
+      'bg-warning': mesa.status == 'FECHADO'
+    }"
+  >
+    <div>
+      <p>{{ mesa.id }}</p>
+      <p>{{ mesa.titulo }}</p>
+      <p>{{ mesa.status | uppercase }}</p>
+    </div>
+  </div>
+</div>

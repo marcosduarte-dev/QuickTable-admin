@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="flex align-items-center justify-content-center mt-2 mb-5">
+    <h2>Pedidos em Andamento</h2>
+  </div>
+
+  <div>
+    <p-accordion
+      *ngFor="let pedido of list"
+      [multiple]="true"
+      [activeIndex]="[0]"
+    >
+      <p-accordionTab
+        [header]="
+          pedido.id +
+          ' - ' +
+          pedido.reserva.mesa.titulo +
+          ' - ' +
+          ' R$ ' +
+          pedido.totalPedido
+        "
+      >
+        <div class="flex justify-content-between flex-wrap">
+          <p *ngFor="let item of pedido.itemQuantidade">
+            {{ item.quantidade }} - {{ item.item.nome }}
+          </p>
+          <p-button
+            styleClass="mr-2"
+            pRipple
+            label="Fechar Pedido"
+            severity="success"
+            (click)="fecharPedido(pedido.id)"
+          ></p-button>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</div>
