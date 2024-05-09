@@ -23,4 +23,10 @@ export class PedidosService {
       .post<PedidosModel>(this.url + '/fecharPedido/' + idPedido, {})
       .pipe(retry(2), catchError(handleError));
   }
+
+  getByIdReserva(idReserva: number): Observable<PedidosModel[]> {
+    return this.httpClient
+      .get<PedidosModel[]>(this.url + '/reserva/' + idReserva)
+      .pipe(retry(2), catchError(handleError));
+  }
 }

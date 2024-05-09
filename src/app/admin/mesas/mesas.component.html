@@ -7,6 +7,7 @@
       'bg-danger': mesa.status == 'USO',
       'bg-warning': mesa.status == 'FECHADO'
     }"
+    (click)="showDialog(mesa)"
   >
     <div>
       <p>{{ mesa.id }}</p>
@@ -14,4 +15,69 @@
       <p>{{ mesa.status | uppercase }}</p>
     </div>
   </div>
+</div>
+
+<p-dialog [header]="header" [(visible)]="visible" [style]="{ width: '50vw' }">
+  <div *ngIf="!dialogLoaded">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+  </div>
+
+  <div *ngIf="dialogLoaded">
+    <p-accordion
+      *ngFor="let pedido of pedidos"
+      [multiple]="true"
+      [activeIndex]="[0]"
+    >
+      <p-accordionTab
+        [header]="
+          pedido.id +
+          ' - ' +
+          pedido.nome_cliente +
+          ' - ' +
+          ' R$ ' +
+          pedido.totalPedido.toFixed(2)
+        "
+      >
+        <div class="flex justify-content-between flex-wrap">
+          <p *ngFor="let item of pedido.itemQuantidade">
+            {{ item.quantidade }} - {{ item.item.nome }}
+          </p>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+
+  <div *ngIf="dialogLoaded">
+    <p-button
+      styleClass="mr-2"
+      pRipple
+      label="Pagamento Customizado"
+      severity="success"
+      [disabled]="true"
+      (click)="pagamentoParticionado()"
+    ></p-button>
+    <p-button
+      styleClass="mr-2"
+      pRipple
+      label="Pagamento Customizado"
+      severity="success"
+      (click)="pagamentoCustomizado()"
+    ></p-button>
+  </div>
+</p-dialog>
+
+<div class="card flex justify-content-center">
+  <p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+      <div
+        class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border"
+      >
+        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <p>O valor a ser pago por consumo da mesa é:</p>
+        <p *ngFor="let item of listaPagamentoCustomizado">
+          {{ item.nome }} - R$ {{ item.valorFinal.toFixed(2) }}
+        </p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
 </div>

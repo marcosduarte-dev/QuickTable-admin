@@ -13,6 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { DropdownModule } from 'primeng/dropdown';
 import { TreeTableModule } from 'primeng/treetable';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -40,6 +41,7 @@ import { PedidosService } from './services/pedidos.service';
     TreeTableModule,
     CardModule,
     AccordionModule,
+    ProgressSpinnerModule,
   ],
   declarations: [],
   exports: [
@@ -59,6 +61,7 @@ import { PedidosService } from './services/pedidos.service';
     TreeTableModule,
     CardModule,
     AccordionModule,
+    ProgressSpinnerModule,
   ],
   providers: [MessageService, ConfirmationService, PedidosService],
 })
