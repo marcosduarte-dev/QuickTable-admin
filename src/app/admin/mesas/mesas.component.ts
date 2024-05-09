@@ -7,6 +7,7 @@ import { PedidosModel } from '../../models/pedidos.model';
 import { PedidosService } from '../../services/pedidos.service';
 import { ConfirmationService } from 'primeng/api';
 import { PagamentoCustomizadoModel } from '../../models/pagamentoCustomizado';
+import { ReservasService } from '../../services/reserva.service';
 
 @Component({
   selector: 'app-mesas',
@@ -23,6 +24,7 @@ export class MesasComponent implements OnInit {
   constructor(
     private mesaService: MesasService,
     private pedidosService: PedidosService,
+    private reservaService: ReservasService,
     private confirmationService: ConfirmationService
   ) {}
 
@@ -31,11 +33,18 @@ export class MesasComponent implements OnInit {
   listaPagamentoCustomizado: PagamentoCustomizadoModel[] = [];
   separado: { [key: string]: number } = {};
   stringNome: string = '';
+  idReserva: number = 0;
   dialogLoaded: boolean = false;
 
   getMesas() {
     this.mesaService.getMesas().subscribe((mesas: MesaModel[]) => {
       this.list = mesas;
+    });
+  }
+
+  fecharReserva(idReserva: number) {
+    this.reservaService.fecharReserva(idReserva).subscribe(() => {
+      // Enviar uma notificação para o cliente
     });
   }
 
@@ -57,6 +66,7 @@ export class MesasComponent implements OnInit {
     this.pedidos = [];
     this.header = mesa.titulo;
     this.visible = true;
+    this.idReserva = mesa.idReservaAtiva;
     this.getPedidosPeloIdReserva(mesa.idReservaAtiva);
   }
 
@@ -91,7 +101,7 @@ export class MesasComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-sm',
       acceptButtonStyleClass: 'p-button-outlined p-button-sm',
       accept: () => {
-        // MUDAR STATUS MESA PARA ABERTO E COLOCAR TODOS OS PEDIDOS COMO FINALIZADO E FINALIZAR A RESERVA
+        this.fecharReserva(this.idReserva);
       },
       reject: () => {},
     });
