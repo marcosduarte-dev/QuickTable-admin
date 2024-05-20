@@ -32,6 +32,7 @@ export class PedidosComponent implements OnInit {
       .fecharPedido(idPedido)
       .subscribe((pedidos: PedidosModel) => {
         console.log(pedidos + 'Fechado!');
+        this.getProjects();
       });
   }
 }
