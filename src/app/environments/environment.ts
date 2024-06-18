@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://quicktable-back.onrender.com/',
+  apiUrl: 'https://quicktable-back.onrender.com',
 };
